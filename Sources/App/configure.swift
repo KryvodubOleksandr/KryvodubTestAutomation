@@ -29,8 +29,20 @@ public func configure(_ app: Application) throws {
         database: Environment.get("DATABASE_NAME") ?? databaseName
     ), as: .psql)
 
-    app.migrations.add(CreateTodo())
-
+    app.migrations.add(CreateUser())
+    app.migrations.add(CreatePost())
+    app.migrations.add(CreateComment())
+    app.migrations.add(CreateToken())
+    app.migrations.add(CreateAdminUser())
+    app.migrations.add(CreateResetPasswordToken())
+    
+    app.http.server.configuration.hostname = "0.0.0.0"
+    
+    app.logger.logLevel = .debug
+    
+    try app.autoMigrate().wait()
+    
+    app.sendgrid.initialize()
     app.views.use(.leaf)
 
     try routes(app)
