@@ -1,12 +1,15 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-
-  <title>#(title)</title>
-</head>
-
-<body>
-  <h1>#(title)</h1>
-</body>
-</html>
+#extend("base"):
+  #export("content"):
+  
+    #if(message):
+        <div class="alert alert-success" role="alert">
+            #(message)
+        </div>
+    #endif
+  
+    <h1>Posts</h1>
+    #extend("postsTable")
+    <a href="/posts/create" class="nav-link">Add New Post</a>
+    <br>
+  #endexport
+#endextend

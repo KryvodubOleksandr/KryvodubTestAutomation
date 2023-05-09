@@ -1,0 +1,32 @@
+#extend("base"):
+  #export("content"):
+    <h1>#(title)</h1>
+
+    <form method="post">
+      #if(csrfToken):
+        <input type="hidden" name="csrfToken" value="#(csrfToken)">
+      #endif
+      
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" name="title" class="form-control"
+        id="title" #if(editing): value="#(post.title)" #endif/>
+      </div>
+
+      <div class="form-group">
+        <label for="body">Description</label>
+        <input type="text" name="description" class="form-control"
+        id="body" #if(editing): value="#(post.description)" #endif/>
+      </div>
+      
+      <div class="form-group">
+        <label for="body">Body</label>
+        <textarea type="text" name="body" class="form-control" class="form-control" id="body" rows="5"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary">
+        #if(editing): Update #else: Add New Post #endif
+      </button>
+    </form>
+  #endexport
+#endextend
